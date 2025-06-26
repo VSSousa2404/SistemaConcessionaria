@@ -10,7 +10,7 @@ public class Clientes {
     private String Cpf;
     private String Endereco;
     private String Rg;
-    private boolean PrimeiraCompra;
+    private Boolean PrimeiraCompra;
     private String Email;
     private String Celular;
     private String Telefone;
