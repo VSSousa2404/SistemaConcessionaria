@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Clientes {
+public class Cliente {
     private String Nome;
     private String Cpf;
     private String Endereco;
@@ -14,4 +14,5 @@ public class Clientes {
     private String Email;
     private String Celular;
     private String Telefone;
+    
 }

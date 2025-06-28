@@ -1,7 +1,7 @@
 package Dao;
 
 import ConexaoBd.ConexaoBd;
-import Model.Clientes;
+import Model.Cliente;
 
 import javax.swing.*;
 import java.sql.Connection;
@@ -21,43 +21,71 @@ public class ClienteDao {
         this.conexao = new ConexaoBd().getConnection();
     }
 
-    public void adicionaCliente(Clientes clientes) {
+    public void adicionaCliente(Cliente cliente) {
         String sql = "INSERT into cliente (nome, cpf, endereco, rg, primeiraCompra, email, celular, telefone) values (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement ps = conexao.prepareStatement(sql);
-            ps.setString(1, clientes.getNome());
-            ps.setString(2, clientes.getCpf());
-            ps.setString(3, clientes.getEndereco());
-            ps.setString(4, clientes.getRg());
+            ps.setString(1, cliente.getNome());
+            ps.setString(2, cliente.getCpf());
+            ps.setString(3, cliente.getEndereco());
+            ps.setString(4, cliente.getRg());
             ps.setBoolean(5, true);
-            ps.setString(6, clientes.getEmail());
-            ps.setString(7, clientes.getCelular());
-            ps.setString(8, clientes.getTelefone());
-
+            ps.setString(6, cliente.getEmail());
+            ps.setString(7, cliente.getCelular());
+            ps.setString(8, cliente.getTelefone());
+            ps.execute();
+            ps.close();
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
 
-    public List<Clientes> ListaClientes(String filtroNome, String filtroCpf) {
-        List<Clientes> listaClientes = new ArrayList();
-        String sql = "Select * from Cliente";
+    public List<Cliente> ListaClientes(String filtroNome, String filtroCpf) {
+        List<Cliente> listaClientes = new ArrayList();
+        String sql = "SELECT * FROM cliente WHERE 1=1";
+        
+        boolean temNome = filtroNome != null && !filtroNome.trim().isEmpty();
+        boolean temCpf = filtroCpf != null && !filtroCpf.isEmpty();  // sem trim aqui, já está limpo
+    
+        if (temNome || temCpf) {
+            sql += " AND (";
+            if (temNome) {
+                sql += "nome LIKE ?";
+            }
+            if (temCpf) {
+                if (temNome) {
+                    sql += " OR ";
+                }
+                sql += "REPLACE(REPLACE(REPLACE(cpf, '.', ''), '-', ''), ' ', '') LIKE ?";
+            }
+            sql += ")";
+        }
+            
         try {
             PreparedStatement ps = conexao.prepareStatement(sql);
+            int index = 1;
+            if (temNome) {
+                ps.setString(index++, "%" + filtroNome.trim() + "%");
+            }
+            if (temCpf) {
+                ps.setString(index++, "%" + filtroCpf + "%");
+            }
+
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Clientes clientes = new Clientes();
-                clientes.setNome(rs.getString("nome"));
-                clientes.setCpf(rs.getString("CPF"));
-                clientes.setEndereco(rs.getString("Endereco"));
-                clientes.setRg(rs.getString("RG"));
-                clientes.setPrimeiraCompra(rs.getBoolean("PrimeiraCompra"));
-                clientes.setEmail(rs.getString("Email"));
-                clientes.setCelular(rs.getString("Celular"));
-                clientes.setTelefone(rs.getString("Telefone"));
+                Cliente cliente = new Cliente();
+                cliente.setNome(rs.getString("nome"));
+                cliente.setCpf(rs.getString("CPF"));
+                cliente.setEndereco(rs.getString("Endereco"));
+                cliente.setRg(rs.getString("RG"));
+                cliente.setPrimeiraCompra(rs.getBoolean("PrimeiraCompra"));
+                cliente.setEmail(rs.getString("Email"));
+                cliente.setCelular(rs.getString("Celular"));
+                cliente.setTelefone(rs.getString("Telefone"));
                 
-                listaClientes.add(clientes);
+                listaClientes.add(cliente);
             }
             return listaClientes;
 
@@ -66,26 +94,30 @@ public class ClienteDao {
             return null;
         }
     }
+    
 
-    public void atualizaCliente(Clientes cliente) {
-        String sql = "UPDATE Cliente SET nome = ?, Cpf = ?, Endereco = ?, Rg = ?, PrimeiraCompra = ?, Email = ?, Celular = ?, Telefone =?";
+    public void atualizaCliente(Cliente cliente) {
+        String sql = "UPDATE cliente SET nome = ?, Endereco = ?, Rg = ?, PrimeiraCompra = ?, Email = ?, Celular = ?, Telefone = ? where cpf = ?";
         try {
             PreparedStatement ps = conexao.prepareStatement(sql);
             ps.setString(1, cliente.getNome());
-            ps.setString(2, cliente.getCpf());
-            ps.setString(3, cliente.getEndereco());
-            ps.setString(4, cliente.getRg());
-            ps.setBoolean(5, cliente.getPrimeiraCompra());
-            ps.setString(6, cliente.getEmail());
-            ps.setString(7, cliente.getCelular());
-            ps.setString(8, cliente.getCelular());
-            ps.setString(9, cliente.getCelular());
+            ps.setString(2, cliente.getEndereco());
+            ps.setString(3, cliente.getRg());
+            ps.setBoolean(4, false);
+            ps.setString(5, cliente.getEmail());
+            ps.setString(6, cliente.getCelular());
+            ps.setString(7, cliente.getTelefone());
+            ps.setString(8, cliente.getCpf());
+            ps.executeUpdate();
+            ps.close();
 
         } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar cliente" + e.getMessage());
         }
     }
     
-    public void removeClientes(Clientes cliente){
+    public void removeClientes(Cliente cliente){
         String sql = "DELETE FROM cliente where nome = ?";
         
         try {
