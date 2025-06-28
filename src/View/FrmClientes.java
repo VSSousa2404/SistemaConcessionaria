@@ -425,7 +425,24 @@ public class FrmClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTelefoneActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-        // TODO add your handling code here:
+        Cliente cliente = new Cliente();
+        ClienteDao clienteDao = new ClienteDao();
+
+        txtCpf.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 1).toString());
+
+        String cpf = txtCpf.getText().trim();
+
+        cliente.setCpf(cpf);
+        clienteDao.removeCliente(cliente);
+        jTabbedPane2.setSelectedIndex(1);
+        
+        String filtroNome = txtNome1.getText().trim();
+        String filtroCpf = txtCpf1.getText().trim();
+        String filtroLimpaCpf = limparCpf(filtroCpf);
+
+        List<Cliente> listaCliente = new ClienteDao().ListaClientes(filtroNome, filtroLimpaCpf);
+        
+        carregarTabelaClientes(listaCliente);
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
@@ -526,7 +543,7 @@ public class FrmClientes extends javax.swing.JFrame {
         String filtroNome = txtNome1.getText().trim();
         String filtroCpf = txtCpf1.getText().trim();
         String filtroLimpaCpf = limparCpf(filtroCpf);
-        
+
         List<Cliente> listaCliente = new ClienteDao().ListaClientes(filtroNome, filtroLimpaCpf);
         
         carregarTabelaClientes(listaCliente);

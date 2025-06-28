@@ -117,15 +117,18 @@ public class ClienteDao {
         }
     }
     
-    public void removeClientes(Cliente cliente){
-        String sql = "DELETE FROM cliente where nome = ?";
+    public void removeCliente(Cliente cliente){
+        String sql = "DELETE FROM cliente WHERE cpf = ?";
         
         try {
             PreparedStatement ps = conexao.prepareStatement(sql);
-            ps.setString(1, "Nome");
+            ps.setString(1, cliente.getCpf());
             ps.execute();
             ps.close();
+            
+            JOptionPane.showMessageDialog(null, "Cliente excluido com Sucesso");
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERRO: " + e);
         }
     }
 
