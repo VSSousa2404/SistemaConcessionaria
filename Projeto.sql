@@ -12,3 +12,14 @@ create table cliente(
 
 drop table cliente;
 select * from cliente;
+
+create table fornecedor(
+	RazaoSocial varchar (100) not null,
+	cnpj varchar (18) not null primary key,
+    endereco longtext not null,
+    telefone varchar (15) not null,
+    email varchar (100) not null
+);
+
+drop table fornecedor;
+select * from fornecedor;

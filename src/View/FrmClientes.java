@@ -35,7 +35,7 @@ public class FrmClientes extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        labelCadastroC = new javax.swing.JLabel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -74,9 +74,9 @@ public class FrmClientes extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(95, 95, 95));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Cadastro de Clientes");
+        labelCadastroC.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        labelCadastroC.setForeground(new java.awt.Color(255, 255, 255));
+        labelCadastroC.setText("Cadastro de Clientes");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -84,16 +84,22 @@ public class FrmClientes extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(labelCadastroC)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jLabel1)
+                .addComponent(labelCadastroC)
                 .addContainerGap(17, Short.MAX_VALUE))
         );
+
+        jTabbedPane2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane2MouseClicked(evt);
+            }
+        });
 
         jLabel2.setText("Nome:");
 
@@ -336,6 +342,11 @@ public class FrmClientes extends javax.swing.JFrame {
 
         btMenu.setBackground(new java.awt.Color(95, 95, 95));
         btMenu.setText("MENU");
+        btMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btMenuActionPerformed(evt);
+            }
+        });
 
         btNovo.setText("Novo");
         btNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -407,7 +418,6 @@ public class FrmClientes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
     private void txtCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCpfActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCpfActionPerformed
@@ -549,6 +559,23 @@ public class FrmClientes extends javax.swing.JFrame {
         carregarTabelaClientes(listaCliente);
     }//GEN-LAST:event_btBuscarActionPerformed
 
+    private void btMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMenuActionPerformed
+        FrmMenu frmMenu = new FrmMenu();
+        frmMenu.setVisible(true);
+        
+        this.dispose();
+    }//GEN-LAST:event_btMenuActionPerformed
+
+    private void jTabbedPane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane2MouseClicked
+        
+        if(jTabbedPane2.getSelectedIndex() == 0){
+            labelCadastroC.setText("Cadastro de clientes");
+        }
+        if(jTabbedPane2.getSelectedIndex() == 1){
+            labelCadastroC.setText("Consulta de clientes");
+        }
+    }//GEN-LAST:event_jTabbedPane2MouseClicked
+
     public void carregarTabelaClientes(List<Cliente> cliente){
         DefaultTableModel tabela = (DefaultTableModel) tabelaClientes.getModel();
         
@@ -617,7 +644,6 @@ public class FrmClientes extends javax.swing.JFrame {
     private javax.swing.JButton btMenu;
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btSalvar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -636,6 +662,7 @@ public class FrmClientes extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JLabel labelCadastroC;
     private javax.swing.JTable tabelaClientes;
     private javax.swing.JFormattedTextField txtCelular;
     private javax.swing.JFormattedTextField txtCpf;

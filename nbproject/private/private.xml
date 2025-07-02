@@ -3,13 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/victo/Desktop/ProjetoConcessionaria/ProjetoConcessionaria/src/View/FrmMenu.java</file>
-            <file>file:/C:/Users/victo/Desktop/ProjetoConcessionaria/ProjetoConcessionaria/src/View/FrmFornecedor.java</file>
-            <file>file:/C:/Users/victo/Desktop/ProjetoConcessionaria/ProjetoConcessionaria/src/View/FrmFuncionario.java</file>
-            <file>file:/C:/Users/victo/Desktop/ProjetoConcessionaria/ProjetoConcessionaria/src/View/FrmUnidade.java</file>
-            <file>file:/C:/Users/victo/Desktop/ProjetoConcessionaria/ProjetoConcessionaria/src/View/FrmVeiculos.java</file>
-            <file>file:/C:/Users/victo/Desktop/ProjetoConcessionaria/ProjetoConcessionaria/src/View/FrmClientes.java</file>
-            <file>file:/C:/Users/victo/Desktop/ProjetoConcessionaria/ProjetoConcessionaria/src/Dao/ClienteDao.java</file>
+            <file>file:/C:/Users/victo/Desktop/ProjetoConcessionaria/SistemaConcessionaria/src/View/FrmFornecedor.java</file>
+            <file>file:/C:/Users/victo/Desktop/ProjetoConcessionaria/SistemaConcessionaria/src/Dao/FornecedorDao.java</file>
+            <file>file:/C:/Users/victo/Desktop/ProjetoConcessionaria/SistemaConcessionaria/src/Dao/ClienteDao.java</file>
+            <file>file:/C:/Users/victo/Desktop/ProjetoConcessionaria/SistemaConcessionaria/src/View/FrmClientes.java</file>
+            <file>file:/C:/Users/victo/Desktop/ProjetoConcessionaria/SistemaConcessionaria/src/Model/Fornecedor.java</file>
         </group>
     </open-files>
 </project-private>
